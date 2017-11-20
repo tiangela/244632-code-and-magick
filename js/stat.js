@@ -15,19 +15,17 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillText('Ура вы победили!', 120, 40);
   ctx.fillText('Список результатов:', 120, 60);
 
-
-  var max = -1;
   var maxIndex = -1;
+
   for (var i = 0; i < times.length; i++) { // поиск максимального элемента массива
     var time = times[i];
-    if (time > max) {
-      max = time;
-      maxIndex = i;
+    if (time > maxIndex) {
+      maxIndex = time;
     }
   }
 
   var histogramHeigth = -150; // px;
-  var step = histogramHeigth / (max - 0); // px; рассчитывает пропорции
+  var step = histogramHeigth / (maxIndex - 0); // px; рассчитывает пропорции
 
   // var randomOpacity = getRandomValue(0.5, 0.9);
 
@@ -46,7 +44,7 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.fillText(Math.floor(times[i]), initialX + indent * i, histogramHeigth + initialY - barHeigth / 2);
   }
 
-  function getRandomValue(min, max) {
-    return Math.random() * (max - min) + min;
+  function getRandomValue(minRandom, maxRandom) {
+    return Math.random() * (maxRandom - minRandom) + minRandom;
   }
 };
