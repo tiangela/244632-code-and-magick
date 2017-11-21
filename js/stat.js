@@ -15,34 +15,37 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillText('Ура вы победили!', 120, 40);
   ctx.fillText('Список результатов:', 120, 60);
 
-  var maxIndex = -1;
-
-  for (var i = 0; i < times.length; i++) { // поиск максимального элемента массива
-    var time = times[i];
-    if (time > maxIndex) {
-      maxIndex = time;
-    }
-  }
-
-  var histogramHeigth = -150; // px;
-  var step = histogramHeigth / (maxIndex - 0); // px; рассчитывает пропорции
-
-  // var randomOpacity = getRandomValue(0.5, 0.9);
-
-
   var barHeigth = 20; // px;
   var initialX = 150; // px;
   var indent = 90; // px;
   var initialY = 240; // px;
   var lineWitdth = 40; // px;
+  var maxTime = -1;
 
-  for (i = 0; i < times.length; i++) { // перебирает массив ставит столбики имена и время
+var getMaxElement = function () {
+
+  for (var i = 0; i < times.length; i++) { // поиск максимального элемента массива
+    var time = times[i];
+    if (time > maxTime) {
+      maxTime = time;
+    }
+  }
+  return maxTime;
+  };
+
+  var histogramHeigth = -150; // px;
+  var step = histogramHeigth / maxTime; // px; рассчитывает пропорции
+
+var getColumns = function () {
+    for (i = 0; i < times.length; i++) { // перебирает массив ставит столбики имена и время
     ctx.fillStyle = names[i] === 'Вы' ? 'red' : 'rgba(0, 0, 255, ' + getRandomValue(0.3, 1) + ')';
     ctx.fillRect(initialX + indent * i, initialY, lineWitdth, times[i] * step);
     ctx.fillStyle = 'black';
     ctx.fillText(names[i], initialX + indent * i, initialY + barHeigth);
     ctx.fillText(Math.floor(times[i]), initialX + indent * i, histogramHeigth + initialY - barHeigth / 2);
   }
+  return ?;
+};
 
   function getRandomValue(minRandom, maxRandom) {
     return Math.random() * (maxRandom - minRandom) + minRandom;
