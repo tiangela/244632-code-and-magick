@@ -8,15 +8,15 @@ window.renderStatistics = function (ctx, names, times) {
   var lineWitdth = 40; // px;
   var histogramHeigth = -150;
 
-  var getResultField = function () {
+  var drawResultField = function () {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; // black
     ctx.fillRect(110, 20, 420, 270);
     ctx.fillStyle = 'rgba(255, 255, 255, 1.0)'; // white;
     ctx.strokeRect(100, 10, 420, 270);
     ctx.fillRect(100, 10, 420, 270);
+    textResult();
   };
 
-  // black;
   var textResult = function () {
     ctx.fillStyle = '#000';
     ctx.font = '16px PT Mono';
@@ -41,8 +41,9 @@ window.renderStatistics = function (ctx, names, times) {
     var step = histogramHeigth / maxTime; // px; рассчитывает пропорции
     return step;
   };
-  var step = getStep();
-  var getColumns = function () {
+
+  var drawResultColumns = function () {
+    var step = getStep();
     for (var i = 0; i < times.length; i++) { // перебирает массив ставит столбики имена и время
       ctx.fillStyle = names[i] === 'Вы' ? 'red' : 'rgba(0, 0, 255, ' + getRandomValue(0.3, 1) + ')';
       ctx.fillRect(initialX + indent * i, initialY, lineWitdth, times[i] * step);
@@ -54,7 +55,6 @@ window.renderStatistics = function (ctx, names, times) {
   function getRandomValue(minRandom, maxRandom) {
     return Math.random() * (maxRandom - minRandom) + minRandom;
   }
-  getResultField();
-  textResult();
-  getColumns();
+  drawResultField();
+  drawResultColumns();
 };
